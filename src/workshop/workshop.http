@@ -1,0 +1,162 @@
+### ========================================
+### ATELIER 1 - CRUD DE BASE
+### ========================================
+
+### 1. Créer un utilisateur ADMIN
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "admin123",
+  "role": "ADMIN"
+}
+
+### 2. Créer un utilisateur CLIENT
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "email": "client@gmail.com",
+  "password": "client123",
+  "role": "CLIENT"
+}
+
+### 3. Créer plusieurs utilisateurs pour les tests
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "email": "user1@example.com",
+  "password": "user123",
+  "role": "CLIENT"
+}
+
+###
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "email": "user2@microsoft.com",
+  "password": "user123",
+  "role": "CLIENT"
+}
+
+###
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "email": "user3@microsoft.com",
+  "password": "user123",
+  "role": "CLIENT"
+}
+
+### 4. Activer un utilisateur
+PUT http://localhost:3000/users/activate
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "admin123"
+}
+
+### 5. Obtenir un utilisateur par ID (remplacer {id} par un vrai ID)
+GET http://localhost:3000/users/675d1234567890abcdef1234
+
+### 6. Obtenir un utilisateur par email
+GET http://localhost:3000/users/email/admin@example.com
+
+### 7. Obtenir tous les utilisateurs actifs
+GET http://localhost:3000/users/active/list
+
+### 8. Mettre à jour un utilisateur (remplacer {id} par un vrai ID)
+PUT http://localhost:3000/users/675d1234567890abcdef1234
+Content-Type: application/json
+
+{
+  "email": "newemail@example.com"
+}
+
+### 9. Supprimer un utilisateur (remplacer {id} par un vrai ID)
+DELETE http://localhost:3000/users/675d1234567890abcdef1234
+
+
+### ========================================
+### ATELIER 2 - ADMIN (TOUS LES CHAMPS)
+### ========================================
+
+### 1. Liste complète des utilisateurs
+GET http://localhost:3000/admin/users
+x-user-role: ADMIN
+
+### 2. Utilisateurs non mis à jour depuis 6 mois
+GET http://localhost:3000/admin/users/not-updated?months=6
+x-user-role: ADMIN
+
+### 3. Utilisateurs par domaine email
+GET http://localhost:3000/admin/users/by-domain/example.com
+x-user-role: ADMIN
+
+### 4. Utilisateurs créés dans les 7 derniers jours
+GET http://localhost:3000/admin/users/recent?days=7
+x-user-role: ADMIN
+
+### 5. Statistiques - Comptage par rôle
+GET http://localhost:3000/admin/users/stats/by-role
+x-user-role: ADMIN
+
+### 6. Utilisateurs entre deux dates
+GET http://localhost:3000/admin/users/stats/between-dates?startDate=2024-01-01&endDate=2024-12-31
+x-user-role: ADMIN
+
+### 7. Utilisateurs les plus récents
+GET http://localhost:3000/admin/users/stats/most-recent?limit=10
+x-user-role: ADMIN
+
+### 8. Moyenne des jours entre création et mise à jour
+GET http://localhost:3000/admin/users/stats/average-days
+x-user-role: ADMIN
+
+### 9. Pagination
+GET http://localhost:3000/admin/users/paginated?page=1&limit=10
+x-user-role: ADMIN
+
+### 10. Tri par date de création (décroissant)
+GET http://localhost:3000/admin/users/sorted/created?order=DESC
+x-user-role: ADMIN
+
+### 11. Tri par date de création (croissant)
+GET http://localhost:3000/admin/users/sorted/created?order=ASC
+x-user-role: ADMIN
+
+### 12. Tri multiple (rôle puis date)
+GET http://localhost:3000/admin/users/sorted/multiple
+x-user-role: ADMIN
+
+### 13. Désactiver les comptes inactifs depuis 12 mois
+PUT http://localhost:3000/admin/users/deactivate-inactive?months=12
+x-user-role: ADMIN
+
+### 14. Mise à jour en masse du rôle par domaine
+PUT http://localhost:3000/admin/users/bulk-update-role?domain=microsoft.com
+Content-Type: application/json
+x-user-role: ADMIN
+
+{
+  "role": "ADMIN"
+}
+
+
+### ========================================
+### ATELIER 2 - CLIENT (CHAMPS LIMITÉS)
+### ========================================
+
+### 1. Liste des utilisateurs (id et email uniquement)
+GET http://localhost:3000/client/users
+x-user-role: CLIENT
+
+### 2. Pagination (id et email uniquement)
+GET http://localhost:3000/client/users/paginated?page=1&limit=5
+x-user-role: CLIENT
+
